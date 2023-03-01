@@ -12,15 +12,16 @@ export default class ColorBox extends Component {
     }
 
     changeCopyState() {
-        console.log("new show");
+        
         this.setState({copied: true}, () => {
             setTimeout(() => this.setState({copied: false}), 1500);
         });
     }
 
   render() {
-    const {color, name} = this.props.background;
+    const {color, name} = this.props;
     const {copied} = this.state;
+    
     return (
         <CopyToClipboard text={color} onCopy={this.changeCopyState}>
       <div style = {{background: color}} className='ColorBox'>

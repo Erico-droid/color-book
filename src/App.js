@@ -3,7 +3,7 @@ import Pallette from './Pallette';
 import seedColors from './seedColors';
 import { generatePalette } from './colorHelpers';
 import {Route, Routes} from 'react-router-dom';
-import withRouter from './withRouter';
+import PaletteList from './PaletteList';
 
 export default class App extends Component {
 
@@ -22,18 +22,10 @@ export default class App extends Component {
   }
 
 
-  // findPalette(id) {
-  //   seedColors.find(function(palette) {
-  //     return palette.id === id;
-  //   })
-  // }
-
   findPalette(id) {
-    for (var key in seedColors) {
-      if (seedColors[key].id === id) {
-        return seedColors[key];
-      }
-    }
+    return seedColors.find(function(palette) {
+      return palette.id === id;
+    })
   }
 
 
@@ -41,10 +33,9 @@ export default class App extends Component {
     const id = this.state.currentId;
     return (
       <Routes>
-      <Route exact path='/' element={<h1>Palette list goes here</h1>} />
+      <Route exact path='/' element={<PaletteList palettes={seedColors} />} />
       <Route exact path='/palette/:id' element={ id.length === 0 ? <Pallette setId={this.setId} /> :
           <Pallette pallette={generatePalette(this.findPalette(id))} setId={this.setId}/>
-          // null
         } />
       </Routes>
       // <div>

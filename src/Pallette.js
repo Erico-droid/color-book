@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import ColorBox from './ColorBox'
 import './Pallette.css';
 import NavBar from './NavBar';
+import withRouter from './withRouter';
 
-export default class Pallette extends Component {
+class Pallette extends Component {
     constructor(props) {
         super(props);
         this.state = {level: 500, format: "hex"};
@@ -21,6 +22,11 @@ export default class Pallette extends Component {
       this.setState({format: evt.target.value});
     }
 
+
+    componentDidMount() {
+      this.props.setId(this.props.params.id);
+    }
+
   render() {
     const {colors, paletteName, emoji} = this.props.pallette;
     const {level, format} = this.state;
@@ -29,6 +35,7 @@ export default class Pallette extends Component {
     })
     
     return (
+      // <></>
       <div className='Palette'>
         <NavBar level = {level} changeLevel={this.changeLevel} handleChange={this.changeFormat} />
         <div className='Palette-colors'>
@@ -42,3 +49,5 @@ export default class Pallette extends Component {
     )
   }
 }
+
+export default withRouter(Pallette);
